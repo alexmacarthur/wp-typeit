@@ -30,6 +30,15 @@ Or, making an effect continuously loop:
 <h2>[typeit strings="This is a string that will loop!" speed="100" loop="true"]</h2>
 ```
 
+### Defing Strings in an SEO-Friendly Way
+As demonstrated, you can define a string to be typed by passing it in as a "strings" attribute. However, you may also define them by passing them inside of two enclosing shortcode tags:
+
+```
+[typeit speed="300"]This string will exist in your HTML, and when the page is loaded, TypeIt will take over and animate it.[/typeit]
+```
+
+When the tag is rendered, that string will be hard-coded on the page, rather than stored in memory on page load. The advantage to this approach is that web crawlers will be able to parse the text without JavaScript, making the content a bit more SEO-friendly.
+
 For the full list of options you may pass, refer to the documentation at [typeitjs.com/docs#options](https://typeitjs.com/docs#options).
 
 ### Changelog
