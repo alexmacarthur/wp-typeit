@@ -7,4 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'TypeIt\\' => array($baseDir . '/src'),
+    'Tests\\' => array($baseDir . '/tests'),
+    'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src/Composer/Installers'),
 );

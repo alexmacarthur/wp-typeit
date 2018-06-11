@@ -1,8 +1,9 @@
 <?php
 /**
 * Plugin Name: WP TypeIt
+* Plugin URI: https://typeitjs.com
 * Description: Easily create and manage typewriter effects using the JavaScript utility, TypeIt.
-* Version: 1.0.0
+* Version: 1.0.1
 * Author: Alex MacArthur
 * Author URI: https://macarthur.me
 * License: GPLv2 or later
@@ -14,78 +15,66 @@ if ( !defined( 'WPINC' ) ) {
   die;
 }
 
-require_once(ABSPATH . 'wp-admin/includes/plugin.php');
-require_once('vendor/autoload.php');
+if(!class_exists('\\TypeIt\\App')) {
 
-class App {
+  require_once(ABSPATH . 'wp-admin/includes/plugin.php');
+  require_once(dirname(__FILE__) . '/vendor/autoload.php');
 
-  private static $instance;
-  protected $options_prefix = 'typeit';
-  
-  public static function generate_instance() {
-    if(!isset($GLOBALS[static::class]) || is_null($GLOBALS[static::class])) {
-			$GLOBALS[static::class] = new static();
-    }
-  }
-
-  /**
-   * Instatiate necessary classes, enqueue admin scripts.
-   */
-  public function __construct() {
+  class App {
     
-    new Shortcode;
+    public static function go() {
+      $GLOBALS[__CLASS__] = new self;
+      return $GLOBALS[__CLASS__];
+    }
 
-    add_filter( 'plugin_row_meta', array($this, 'add_plugin_meta'), 10, 4);
-    add_action( 'wp_enqueue_scripts', array($this, 'set_up_front_styles_and_scripts' ));
-    add_action( 'wp_head', array($this, 'insert_header_comment'));
-  }
+    /**
+     * Instatiate necessary classes, enqueue admin scripts.
+     */
+    public function __construct() {
+      $realpath = realpath(dirname(__FILE__));
 
-  public function add_plugin_meta($plugin_meta, $plugin_file, $plugin_data, $status) {
-    if(strpos($plugin_file, 'wp-typeit') === false) return $plugin_meta;
-    $plugin_meta[] = '<a href="https://typeitjs.com">Visit the TypeIt Website</a>';
-    return $plugin_meta;
-  }
+      require_once($realpath . '/src/hooks/shortcode.php');
 
-  /**
-   * Spit out a nice logo in the site's header.
-   *
-   * @return void
-   */
-  public static function insert_header_comment() {
-    echo "
+      add_filter( 'plugin_row_meta', array($this, 'add_plugin_meta'), 10, 4);
+      add_action( 'wp_enqueue_scripts', array($this, 'set_up_front_styles_and_scripts' ));
+      add_action( 'wp_head', array($this, 'insert_header_comment'));
+    }
+
+    public function add_plugin_meta($plugin_meta, $plugin_file, $plugin_data, $status) {
+      if(strpos($plugin_file, 'wp-typeit') === false) return $plugin_meta;
+      $plugin_meta[] = '<a href="https://typeitjs.com">Visit the TypeIt Website</a>';
+      return $plugin_meta;
+    }
+
+    /**
+     * Spit out a nice logo in the site's header.
+     *
+     * @return void
+     */
+    public static function insert_header_comment() {
+      echo "
 <!-- 
   This site uses TypeIt, the most versatile animated typing utility on the planet. 
   
   https://typeitjs.com
-    _____               ___ _   
+  ______               ___ _   
   |_   _|  _ _ __  ___|_ _| |_ 
     | || || | '_ \/ -_)| ||  _|
     |_| \_, | .__/\___|___|\__|
         |__/|_|                
 -->\n\n";
+    }
+
+    public function set_up_front_styles_and_scripts() {
+      wp_register_script(
+        'typeit',
+        'https://cdnjs.cloudflare.com/ajax/libs/typeit/' . Store::get('typeit_version') . '/typeit.min.js',
+        array(),
+        null,
+        true );
+    }
   }
 
-  /**
-   * Delete global and post/page data.
-   *
-   * @return void
-   */
-  public static function delete_options_and_meta() {
-    global $wpdb;
-    delete_option(Store::get('options_prefix'));
-    $wpdb->delete( $wpdb->prefix . 'postmeta', array( 'meta_key' => Store::get('options_prefix')) );
-  }
-
-  public function set_up_front_styles_and_scripts() {
-    wp_register_script(
-			'typeit',
-			'https://cdnjs.cloudflare.com/ajax/libs/typeit/' . Store::get('typeit_version') . '/typeit.min.js',
-			array(),
-			null,
-			true );
-  }
+  App::go();
+  
 }
-App::generate_instance();
-
-//-- On uninstallation, delete plugin-related database stuffs.
-register_uninstall_hook( __FILE__, array('\TypeIt\App', 'delete_options_and_meta') );

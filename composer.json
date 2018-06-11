@@ -4,7 +4,7 @@
   "type": "wordpress-plugin",
   "minimum-stability": "stable",
   "license": "GPL-2.0",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "authors": [
     {
       "name": "Alex MacArthur",
@@ -16,9 +16,21 @@
   "support" : {
     "issues": "https://wordpress.org/support/plugin/typeit"
   },
+  "require": {
+    "composer/installers": "^1.0.7"
+  },
   "autoload": {
     "psr-4": {
-      "TypeIt\\": "src/"
+      "TypeIt\\": "src/", 
+      "Tests\\": "tests/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.5"
   }
 }

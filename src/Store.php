@@ -6,7 +6,6 @@ class Store {
 
     private static $data = array(
         'typeit_version' => '5.10.1',
-        'options_prefix' => 'typeit',
         'option_defaults' => array(),
         'option_default_values' => array()
     );
