@@ -3,9 +3,10 @@
 Contributors: alexmacarthur
 Donate link: paypal.me/alexmacarthur
 Tags: typewriter effect, text effect, text animation
+Requires PHP: 5.6
 Requires at least: 4.0
-Tested up to: 4.9.6
-Stable tag: 1.0.1
+Tested up to: 4.9.7
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,7 +50,7 @@ Or, making an effect continuously loop:
 <h2>[typeit strings="This is a string that will loop!" speed="100" loop="true"]</h2>
 `
 
-= Defing Strings in an SEO-Friendly Way = 
+= Define Strings in an SEO-Friendly Way = 
 As demonstrated, you can define a string to be typed by passing it in as a "strings" attribute. However, you may also define them by passing them inside of two enclosing shortcode tags:
 
 `
@@ -80,6 +81,10 @@ Nope! TypeIt uses vanilla JavaScript with no external dependencies, so you're go
 * Improve documentation.
 * Add unit testing for increased code reliability.
 * Fix bug causing camel-cased shortcode attributes to work improperly.
+
+= 1.0.2 =
+* Improve code structure.
+* Make code more easily hookable for developers.
 
 == Feedback ==
 

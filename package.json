@@ -3,7 +3,7 @@
   "email": "alex@macarthur.me",
   "url": "https://macarthur.me",
   "description": "Easily create typewriter effects using the JavaScript utility, TypeIt.",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "license": "GPL-2.0",
   "main": "typeit.php",
   "repository": {

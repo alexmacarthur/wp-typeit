@@ -11,6 +11,7 @@ return apply_filters('typeit:settings_data', array(
         "default_value" => "",
         "input_type" => "text",
         "required" => true,
+        "can_have_many" => true
     ),
 
     'speed' => array(

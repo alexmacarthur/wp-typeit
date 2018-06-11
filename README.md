@@ -39,7 +39,7 @@ Or, making an effect continuously loop:
 <h2>[typeit strings="This is a string that will loop!" speed="100" loop="true"]</h2>
 ```
 
-### Defing Strings in an SEO-Friendly Way
+### Define Strings in an SEO-Friendly Way
 As demonstrated, you can define a string to be typed by passing it in as a "strings" attribute. However, you may also define them by passing them inside of two enclosing shortcode tags:
 
 ```
@@ -60,6 +60,10 @@ For the full list of options you may pass, refer to the documentation at [typeit
 * Improve documentation.
 * Add unit testing for increased code reliability.
 * Fix bug causing camel-cased shortcode attributes to work improperly.
+
+## 1.0.2
+* Improve code structure.
+* Make code more easily hookable for developers.
 
 ## Feedback
 You like it? [Email](mailto:alex@macarthur.me) or [tweet](http://www.twitter.com/amacarthur) me. You hate it? [Email](mailto:alex@macarthur.me) or [tweet](http://www.twitter.com/amacarthur) me.

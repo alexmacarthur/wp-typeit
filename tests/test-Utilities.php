@@ -10,7 +10,7 @@ class UtilitiesTest extends \Tests\TestCase
 
     public function setUp() {
         $this->options = [
-            "strings" => "a sample string",
+            "strings" => ["a sample string"],
             "speed" => "100",
             "deleteSpeed" => "500",
             "lifeLike" => "true",
@@ -30,7 +30,7 @@ class UtilitiesTest extends \Tests\TestCase
     {
         $typed = Utilities::get_typed_options($this->options);
 
-        $this->assertInternalType('string', $typed["strings"]);
+        $this->assertInternalType('array', $typed["strings"]);
         $this->assertInternalType('int', $typed["speed"]);
         $this->assertInternalType('int', $typed["deleteSpeed"]);
         $this->assertInternalType('bool', $typed["lifeLike"]);

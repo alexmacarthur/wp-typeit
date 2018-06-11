@@ -25,7 +25,7 @@ class StoreTest extends \Tests\TestCase
 
         $this->assertEquals($defaults['strings'], '');
         $this->assertEquals($defaults['speed'], 100);
-        $this->assertEquals($defaults['deleteSpeed'], null);
+        $this->assertEquals($defaults['deletespeed'], null);
         $this->assertEquals($defaults['cursor'], true);
     }
 }
