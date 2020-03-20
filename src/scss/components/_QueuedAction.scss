@@ -1,0 +1,80 @@
+.ti-QueuedAction {
+    border-bottom: 1px solid $light-gray;
+    border-radius: $border-radius;
+    padding: 15px 0;
+    display: flex;
+    justify-content: space-between;
+
+    &:first-child {
+        padding-top: 0;
+    }
+
+    &:last-child {
+        border: 0;
+        padding-bottom: 0;
+    }
+    
+    &-details {
+        flex: 1;
+        display: flex;
+        list-style: none;
+        padding: 0 8px 0 0;
+        margin: 0;
+    }
+
+    &-part {
+        display: flex;
+        align-items: center;
+        
+        & + .ti-QueuedAction-part {
+            margin-left: 10px;
+        }
+
+        &:nth-child(2) {
+            font-family: system-ui;
+        }
+
+        &:nth-child(3) {
+            flex: 0 0 auto;
+        }
+    }
+
+    &-mainPart {
+        flex: 1 1 auto;
+    }
+
+    &-dragger {
+        cursor: pointer;
+        padding: 0;
+        flex: 0 1 auto;
+
+        svg {
+            max-height: 15px;
+        }
+
+        path {
+            fill: $light-gray;
+        }
+
+        &:hover {
+            path {
+                fill: $gray;
+            }
+        }
+    }
+
+    &-input {
+        flex: 0 1 25%;
+    }
+
+    input, select {
+        width: 100%;
+        height: 100%;
+    }
+
+    button {
+        border: 0;
+        font-size: .6em;
+        cursor: pointer;
+    }
+}

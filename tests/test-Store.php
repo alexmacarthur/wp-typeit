@@ -10,7 +10,7 @@ class StoreTest extends \Tests\TestCase
     public function testItShouldReturnVersionOfTypeIt() {
         $this->assertEquals(
             Store::get('typeit_version'),
-            '5.10.1'
+            '7.0.4'
         );
     }
 

@@ -5,8 +5,8 @@ namespace TypeIt;
 add_shortcode('typeit', '\TypeIt\register_shortcode');
 add_filter('typeit:shortcode_atts', '\TypeIt\convert_to_string');
 
-function register_shortcode($atts, $content = '') {
-
+function register_shortcode($atts, $content = '')
+{
     $args = shortcode_atts(
         Store::get('option_default_values'),
         $atts
@@ -23,9 +23,10 @@ function register_shortcode($atts, $content = '') {
     return '<span id="' . $id . '">' . $content . '</span>';
 }
 
-function convert_to_string($args) {
+function convert_to_string($args)
+{
 
-    //-- Ensure that for the free version, just a single simple string is passed. 
+    //-- Ensure that for the free version, just a single simple string is passed.
     $args["strings"] = $args["strings"][0];
 
     //-- Make sure break tags don't have closing slash.
