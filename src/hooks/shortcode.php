@@ -18,7 +18,7 @@ function register_shortcode($atts, $content = '') {
 
     wp_enqueue_script('typeit');
 
-    wp_add_inline_script('typeit', "window." . $id . " = new TypeIt('#" . $id . "', " . json_encode($args) . ");");
+    wp_add_inline_script('typeit', "window." . $id . " = new TypeIt('#" . $id . "', " . json_encode($args) . ").go();");
 
     return '<span id="' . $id . '">' . $content . '</span>';
 }
