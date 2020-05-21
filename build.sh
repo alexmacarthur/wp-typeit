@@ -11,6 +11,7 @@ cp -a ./ ../wp-typeit-build
 
 FILES_TO_DELETE=(
     "tests"
+    ".git"
     ".gitignore"
     "build.sh"
     "package-lock.json"
@@ -24,6 +25,9 @@ FILES_TO_DELETE=(
     "composer.json"
     "composer.lock"
     "plugin-assets"
+    ".prettierignore"
+    ".eslintrc.js"
+    ".eslintignore"
 )
 
 for item in "${FILES_TO_DELETE[@]}"
