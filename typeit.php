@@ -3,7 +3,7 @@
 * Plugin Name: WP TypeIt
 * Plugin URI: https://typeitjs.com
 * Description: Easily create and manage typewriter effects using the JavaScript utility, TypeIt.
-* Version: 2.0.0
+* Version: 1.9.9
 * Author: Alex MacArthur
 * Author URI: https://macarthur.me
 * License: GPLv2 or later

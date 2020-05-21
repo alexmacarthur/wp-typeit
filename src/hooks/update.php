@@ -5,9 +5,17 @@ namespace TypeIt;
 add_filter('site_transient_update_plugins', '\TypeIt\push_update');
 add_filter('transient_update_plugins', '\TypeIt\push_update');
 add_filter('plugin_row_meta', '\TypeIt\remove_view_details_link', 10, 4);
+add_filter('self_admin_url', '\TypeIt\modify_version_details_url');
 
 define("TYPEIT_TRANSIENT_EXPIRATION", 43200); // 12 hours
 define("TYPEIT_UPDATE_CHECK_TRANSIENT", "wp_update_check_wp_typeit");
+
+function modify_version_details_url($url, $path, $scheme)
+{
+    var_dump($url);
+    var_dump($path);
+    return $url;
+}
 
 function remove_view_details_link($pluginMeta, $pluginFile, $pluginData, $status)
 {
