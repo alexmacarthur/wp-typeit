@@ -33,7 +33,7 @@ function push_update($updatePlugins)
     }
  
     $pluginData = wp_remote_get(
-        'https://vercel-wp-plugin-update.now.sh/api/plugin/wp-typeit',
+        'https://wp-plugin-update.now.sh/api/plugin/wp-typeit',
         [
             'headers' => [
                 'Accept' => 'application/json'

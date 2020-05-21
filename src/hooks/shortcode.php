@@ -7,12 +7,13 @@ add_filter('typeit:shortcode_atts', '\TypeIt\convert_to_string');
 
 function register_shortcode($atts, $content = '')
 {
+    
     $args = shortcode_atts(
-        Store::get('option_default_values'),
+        array_merge(Store::get('option_default_values'), ["element" => "span"]),
         $atts
     );
-    
-    $args = apply_filters('typeit:shortcode_atts', Utilities::get_typed_options($args));
+
+    $args = apply_filters('typeit:shortcode_atts', array_merge(Utilities::get_typed_options($args), ["element" => $args["element"]]));
 
     $id = 'typeit_' . mt_rand(100000, 999999);
 
@@ -20,12 +21,11 @@ function register_shortcode($atts, $content = '')
 
     wp_add_inline_script('typeit', "window." . $id . " = new TypeIt('#" . $id . "', " . json_encode($args) . ").go();");
 
-    return '<span id="' . $id . '">' . $content . '</span>';
+    return '<' . $args["element"] . ' id="' . $id . '">' . $content . '</' . $args["element"] . '>';
 }
 
 function convert_to_string($args)
 {
-
     //-- Ensure that for the free version, just a single simple string is passed.
     $args["strings"] = $args["strings"][0];
 
