@@ -5,15 +5,17 @@ namespace TypeIt;
 add_filter('site_transient_update_plugins', '\TypeIt\push_update');
 add_filter('transient_update_plugins', '\TypeIt\push_update');
 add_filter('plugin_row_meta', '\TypeIt\remove_view_details_link', 10, 4);
-add_filter('self_admin_url', '\TypeIt\modify_version_details_url');
+add_filter('self_admin_url', '\TypeIt\modify_version_details_url', 10, 3);
 
 define("TYPEIT_TRANSIENT_EXPIRATION", 43200); // 12 hours
 define("TYPEIT_UPDATE_CHECK_TRANSIENT", "wp_update_check_wp_typeit");
 
 function modify_version_details_url($url, $path, $scheme)
 {
-    var_dump($url);
-    var_dump($path);
+    if(strpos($url, "plugin=wp-typeit") !== false) {
+        return "https://typeitjs.com/docs/wordpress#changelog";
+    }
+    
     return $url;
 }
 
@@ -36,9 +38,9 @@ function push_update($updatePlugins)
         $updatePlugins->response = [];
     }
 
-    if (get_transient(TYPEIT_UPDATE_CHECK_TRANSIENT)) {
-        return $updatePlugins;
-    }
+    // if (get_transient(TYPEIT_UPDATE_CHECK_TRANSIENT)) {
+    //     return $updatePlugins;
+    // }
  
     $pluginData = wp_remote_get(
         'https://wp-plugin-update.now.sh/api/plugin/wp-typeit',
