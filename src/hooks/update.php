@@ -38,9 +38,9 @@ function push_update($updatePlugins)
         $updatePlugins->response = [];
     }
 
-    // if (get_transient(TYPEIT_UPDATE_CHECK_TRANSIENT)) {
-    //     return $updatePlugins;
-    // }
+    if (get_transient(TYPEIT_UPDATE_CHECK_TRANSIENT)) {
+        return $updatePlugins;
+    }
  
     $pluginData = wp_remote_get(
         'https://wp-plugin-update.now.sh/api/plugin/wp-typeit',
