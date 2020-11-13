@@ -130,4 +130,13 @@ return apply_filters('typeit:settings_data', array(
         "required" => false,
     ),
 
+    'waituntilvisible' => array(
+        "js_key" => 'waitUntilVisible',
+        "name" => "waitUntilVisible",
+        "description" => "Only begin the typing animation after the target element is visible.",
+        "helper_description" => "Yes, wait until the element is visible.",
+        "default_value" => false,
+        "input_type" => "checkbox",
+        "required" => false,
+    ),
 ));
