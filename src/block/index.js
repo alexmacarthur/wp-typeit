@@ -6,7 +6,7 @@ import HeadingSelector from "./components/headingSelector";
 import ActionList from "./components/actionList";
 import actionsToString from "./utilities/actionsToString";
 import objectsAreEqual from "./utilities/objectsAreEqual";
-import setActiveBlock from "./utilities/setActiveBlock";
+import onBlockSelection from "./utilities/onBlockSelection";
 import generateHash from "./utilities/generateHash";
 
 const { registerBlockType } = wp.blocks;
@@ -15,8 +15,8 @@ const { subscribe } = wp.data;
 
 // Whenever global data changes, check if we should update
 // the active block set in the TypeIt global store.
-subscribe(() => {
-  setActiveBlock();
+onBlockSelection((selectedBlock) => {
+  wp.data.dispatch("wp-typeit/store").setActiveBlock(selectedBlock);
 });
 
 registerBlockType("wp-typeit/block", {
@@ -114,13 +114,21 @@ registerBlockType("wp-typeit/block", {
 
         <div className="ti-SectionWrapper">
           <h6 className="ti-Heading">Choose a Heading</h6>
-          <span className="ti-HelperText">
-            The element that will contain the animation.
-          </span>
-          <HeadingSelector
-            updateHeading={updateHeading}
-            defaultHeading={attributes.heading}
-          />
+
+          <div className="ti-Row">
+            <div className="ti-Row-cell">
+              <HeadingSelector
+                updateHeading={updateHeading}
+                defaultHeading={attributes.heading}
+              />
+            </div>
+
+            <div className="ti-Row-cell">
+              <span className="ti-HelperText ti-HelperText--noMargin">
+                The element that will contain the animation.
+              </span>
+            </div>
+          </div>
         </div>
 
         <div className="ti-SectionWrapper">

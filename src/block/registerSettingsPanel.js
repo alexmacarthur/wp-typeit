@@ -10,13 +10,18 @@ wp.hooks.addFilter(
   "wp-typeit/with-inspector-controls",
   createHigherOrderComponent((BlockEdit) => {
     return (props) => {
+      const activeBlock = wp.data.select("wp-typeit/store").getActiveBlock();
+      const activeBlockName = activeBlock ? activeBlock.name : "";
+
       return (
         <Fragment>
           <BlockEdit {...props} />
           <InspectorControls>
-            <PanelBody title="TypeIt Settings">
-              <GlobalOptions />
-            </PanelBody>
+            {activeBlockName === "wp-typeit/block" && (
+              <PanelBody title="TypeIt Settings">
+                <GlobalOptions />
+              </PanelBody>
+            )}
           </InspectorControls>
         </Fragment>
       );

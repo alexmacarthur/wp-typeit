@@ -12,13 +12,18 @@
         input {
             width: 100%;
         }
+
+        &--minor {
+            flex: 0 1 auto;
+        }
     }
 
     &-argument, &-selector {
         display: flex;
+        align-items: center;
     }
 
     button {
-        margin-left: 15px;
+        max-height: 30px;
     }
 }

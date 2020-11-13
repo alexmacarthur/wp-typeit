@@ -53,9 +53,11 @@ export default ({
         </div>
 
         {!editOnly && (
-          <Button onClick={queueNewAction} isPrimary>
-            Add
-          </Button>
+          <div className="ti-ActionInput-argument ti-ActionInput-argument--minor">
+            <Button onClick={queueNewAction} isPrimary>
+              Add
+            </Button>
+          </div>
         )}
       </div>
     </form>

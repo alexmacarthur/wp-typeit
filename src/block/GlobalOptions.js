@@ -9,7 +9,9 @@ export default () => {
   const [settings, setSettings] = useState(() => {
     let settings = {
       ...typeItDefaults,
-      ...wp.data.select("wp-typeit/store").getSettings()[activeBlock.current],
+      ...wp.data.select("wp-typeit/store").getSettings()[
+        activeBlock.current.clientId
+      ],
     };
     delete settings.strings;
     delete settings.beforeString;
@@ -36,7 +38,7 @@ export default () => {
     });
 
     wp.data.dispatch("wp-typeit/store").updateSettings({
-      clientId: activeBlock.current,
+      clientId: activeBlock.current.clientId,
       settings: updatedSettings,
     });
 

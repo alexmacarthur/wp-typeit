@@ -1,0 +1,10 @@
+.ti-Row {
+    display: flex;
+    align-items: center;
+
+    &-cell {
+        & + .ti-Row-cell {
+            padding-left: 15px;
+        }
+    }
+}

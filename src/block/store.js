@@ -3,7 +3,7 @@ import settings from "typeit/src/defaults";
 
 const initialState = {
   settings,
-  activeClientId: null,
+  activeBlock: {},
 };
 
 const reducer = (state = initialState, action) => {
@@ -25,7 +25,7 @@ const reducer = (state = initialState, action) => {
     case "SET_ACTIVE_BLOCK": {
       return {
         ...state,
-        activeClientId: action.value,
+        activeBlock: action.value,
       };
     }
   }
@@ -55,7 +55,7 @@ const selectors = {
   },
 
   getActiveBlock(state) {
-    return state.activeClientId;
+    return state.activeBlock || {};
   },
 };
 
