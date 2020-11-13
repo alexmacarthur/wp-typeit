@@ -12,10 +12,10 @@ define("TYPEIT_UPDATE_CHECK_TRANSIENT", "wp_update_check_wp_typeit");
 
 function modify_version_details_url($url, $path, $scheme)
 {
-    if(strpos($url, "plugin=wp-typeit") !== false) {
+    if (strpos($url, "plugin=wp-typeit") !== false) {
         return "https://typeitjs.com/docs/wordpress#changelog";
     }
-    
+
     return $url;
 }
 
@@ -27,9 +27,15 @@ function remove_view_details_link($pluginMeta, $pluginFile, $pluginData, $status
 
     return $pluginMeta;
 }
- 
+
 function push_update($updatePlugins)
 {
+    global $pagenow;
+
+    if ($pagenow !== 'plugins.php') {
+        return $updatePlugins;
+    }
+
     if (!is_object($updatePlugins)) {
         return $updatePlugins;
     }
@@ -38,10 +44,12 @@ function push_update($updatePlugins)
         $updatePlugins->response = [];
     }
 
-    if (get_transient(TYPEIT_UPDATE_CHECK_TRANSIENT)) {
+    if ($transient = get_transient(TYPEIT_UPDATE_CHECK_TRANSIENT)) {
+        $updatePlugins->response['wp-typeit/typeit.php'] = $transient;
+
         return $updatePlugins;
     }
- 
+
     $pluginData = wp_remote_get(
         'https://wp-plugin-update.now.sh/api/plugin/wp-typeit',
         [
@@ -59,25 +67,26 @@ function push_update($updatePlugins)
         return $updatePlugins;
     }
 
-    set_transient(
-        TYPEIT_UPDATE_CHECK_TRANSIENT,
-        current_time("timestamp"),
-        TYPEIT_TRANSIENT_EXPIRATION
-    );
-
     $pluginData = json_decode($pluginData['body']);
-
-    // Don't show `update` notice unless the remote version is newer. 
-    if(version_compare($pluginData->version, WP_TYPEIT_PLUGIN_VERSION, "<=")) {
-        return $updatePlugins;
-    }
-
-    $updatePlugins->response['wp-typeit/typeit.php'] = (object) [
+    $responseObject = (object) [
         'slug'         => 'wp-typeit',
         'new_version'  => $pluginData->version,
         'url'          => 'https://typeitjs.com',
         'package'      => $pluginData->package
     ];
+
+    set_transient(
+        TYPEIT_UPDATE_CHECK_TRANSIENT,
+        $responseObject,
+        TYPEIT_TRANSIENT_EXPIRATION
+    );
+
+    // Don't show `update` notice unless the remote version is newer. 
+    if (version_compare($pluginData->version, WP_TYPEIT_PLUGIN_VERSION, "<=")) {
+        return $updatePlugins;
+    }
+
+    $updatePlugins->response['wp-typeit/typeit.php'] = $responseObject;
 
     return $updatePlugins;
 }
