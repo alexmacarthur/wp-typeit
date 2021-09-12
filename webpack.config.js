@@ -1,5 +1,4 @@
 const defaultConfig = require("@wordpress/scripts/config/webpack.config");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   ...defaultConfig,
@@ -8,26 +7,20 @@ module.exports = {
     index: "./src/block/index.js",
     editor: "./src/scss/style.scss",
   },
+  resolve: {
+    ...defaultConfig.entry,
+    extensions: [".tsx", ".ts", ".js"],
+  },
   module: {
     ...defaultConfig.module,
     rules: [
       ...defaultConfig.module.rules,
       {
-        test: /\.(sa|sc|c)ss$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader",
-          "sass-loader",
-          {
-            loader: "postcss-loader",
-            options: {
-              ident: "postcss",
-              plugins: [require("autoprefixer")],
-            },
-          },
-        ],
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules\/(?!typeit)/,
       },
     ],
   },
-  plugins: [...defaultConfig.plugins, new MiniCssExtractPlugin()],
+  plugins: [...defaultConfig.plugins],
 };

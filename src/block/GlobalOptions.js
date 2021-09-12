@@ -1,4 +1,4 @@
-import typeItDefaults from "typeit/src/defaults";
+import { DEFAULT_OPTIONS as typeItDefaults } from "typeit/src/contants";
 import { TextControl } from "@wordpress/components";
 const { useRef, useState } = wp.element;
 
@@ -13,6 +13,7 @@ export default () => {
         activeBlock.current.clientId
       ],
     };
+
     delete settings.strings;
     delete settings.beforeString;
     delete settings.afterString;
@@ -32,7 +33,8 @@ export default () => {
       let name = s.name.match(/ti_setting\[(.+?)\]/)[1];
       let value = s.type === "checkbox" ? s.checked : s.value;
 
-      value = parseInt(value).toString() === "NaN" ? value : parseInt(value);
+      value =
+        parseInt(value, 10).toString() === "NaN" ? value : parseInt(value);
 
       updatedSettings[name] = value;
     });

@@ -14,7 +14,7 @@
     }
   ],
   "support" : {
-    "issues": "https://wordpress.org/support/plugin/typeit"
+    "issues": "https://github.com/alexmacarthur/wp-typeit"
   },
   "require": {
     "composer/installers": "^1.0.7"

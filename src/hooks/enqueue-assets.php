@@ -8,8 +8,8 @@ function register_typeit_script()
 {
     wp_register_script(
         'typeit',
-        'https://cdnjs.cloudflare.com/ajax/libs/typeit/' . Store::get('typeit_version') . '/typeit.min.js',
-        array(),
+        'https://unpkg.com/typeit@' . Store::get('typeit_version') . '/dist/index.umd.js',
+        [],
         null,
         true
     );

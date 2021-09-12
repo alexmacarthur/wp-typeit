@@ -7,13 +7,13 @@ const actions = [
   },
   {
     name: "delete",
-    type: "number",
-    placeholder: "number of characters to delete",
+    type: "text",
+    placeholder: "number of characters, or a CSS selector",
   },
   {
     name: "move",
-    type: "number",
-    placeholder: "number of characters to move cursor",
+    type: "text",
+    placeholder: "number of characters, or a CSS selector",
   },
   {
     name: "break",

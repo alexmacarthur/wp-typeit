@@ -1,6 +1,7 @@
 import "./store";
 import "./registerSettingsPanel";
-import arrayMove from "array-move";
+import { arrayMoveImmutable as arrayMove } from "array-move";
+import { DEFAULT_OPTIONS as typeItDefaults } from "typeit/src/contants";
 import ActionInput from "./components/actionInput";
 import HeadingSelector from "./components/headingSelector";
 import ActionList from "./components/actionList";
@@ -48,9 +49,11 @@ registerBlockType("wp-typeit/block", {
     };
 
     const updateGlobalSettings = () => {
+      const settingsAreEmpty = JSON.stringify(attributes.settings) === "{}";
+
       wp.data.dispatch("wp-typeit/store").updateSettings({
         clientId,
-        settings: attributes.settings,
+        settings: settingsAreEmpty ? typeItDefaults : attributes.settings,
       });
     };
 
@@ -76,7 +79,7 @@ registerBlockType("wp-typeit/block", {
     });
 
     const getArgumentType = (value) => {
-      return parseInt(value).toString() === "NaN" ? "string" : "number";
+      return parseInt(value, 10).toString() === "NaN" ? "string" : "number";
     };
 
     const addAction = (name, value) => {
@@ -171,16 +174,18 @@ registerBlockType("wp-typeit/block", {
       <>
         <attributes.heading id={id} />
 
-        <script>
-          {`
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
             window.addEventListener('load', function () {
-                window.${id} = new TypeIt(
-                    "#${id}", 
-                    ${JSON.stringify(settings)}
-                )${actionChain}.go();
+              window.${id} = new TypeIt(
+                "#${id}", 
+                ${JSON.stringify(settings)}
+              )${actionChain}.go();
             });
-          `}
-        </script>
+          `,
+          }}
+        ></script>
       </>
     );
   },
