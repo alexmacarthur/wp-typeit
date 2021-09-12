@@ -1,5 +1,5 @@
 {
-  "name": "wp-typeit",
+  "name": "alexmacarthur/wp-typeit",
   "description": "Easily create and manage typewriter effects using the JavaScript utility, TypeIt.",
   "type": "wordpress-plugin",
   "minimum-stability": "stable",
