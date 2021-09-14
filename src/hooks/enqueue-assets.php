@@ -2,7 +2,7 @@
 
 namespace TypeIt;
 
-add_action('wp_enqueue_scripts', 'TypeIt\register_typeit_script');
+add_action('wp_enqueue_scripts', 'TypeIt\register_typeit_script', 11);
 
 function register_typeit_script()
 {
