@@ -18,7 +18,7 @@
         flex: 1;
         display: flex;
         list-style: none;
-        padding: 0 8px 0 0;
+        padding: 0;
         margin: 0 !important;
     }
 
@@ -36,6 +36,7 @@
 
         &:nth-child(3) {
             flex: 0 0 auto;
+            margin: 0;
         }
     }
 
@@ -45,7 +46,7 @@
 
     &-dragger {
         cursor: pointer;
-        padding: 0;
+        padding: 0 3px;
         flex: 0 1 auto;
 
         svg {
@@ -78,5 +79,6 @@
         cursor: pointer;
         padding: 5px 10px;
         border-radius: 3px;
+        background: none;
     }
 }
