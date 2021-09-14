@@ -28,6 +28,10 @@ FILES_TO_DELETE=(
     ".prettierignore"
     ".eslintrc.js"
     ".eslintignore"
+    ".eslintcache"
+    ".husky"
+    "empty.ts"
+    "tsconfig.json"
 )
 
 for item in "${FILES_TO_DELETE[@]}"
