@@ -1,6 +1,6 @@
 $gray: #323538;
 $light-gray: #dadee2;
-$border-radius: 3px;
+$border-radius: 2px;
 $white: #ffffff;
 
 .ti-Block {
@@ -11,11 +11,13 @@ $white: #ffffff;
 
     background: $white;
     padding: 15px 20px;
-    border-radius: 8px;
     border: 3px solid rgba($light-gray, .5);
+    $inputHeight: 35px;
 
     .ti-Heading {
         margin: 0 0 .5em !important;
+        letter-spacing: normal !important;
+        text-transform: none !important;
     }
 
     h5.ti-Heading {
@@ -32,13 +34,15 @@ $white: #ffffff;
 
     input, 
     select {
-        border: 1px solid $light-gray !important;
         border-radius: $border-radius !important;
         margin: 0;
+        min-height: $inputHeight;
     }
 
     select {
         display: block;
+        padding-left: 5px;
+        padding-right: 5px;
     }
 
     input {
@@ -53,6 +57,7 @@ $white: #ffffff;
     button {
         display: flex;
         align-items: center;
+        font-family: "Inter var", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
         
         svg {
             margin-right: 5px;

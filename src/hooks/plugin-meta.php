@@ -19,7 +19,7 @@ function insert_header_comment()
 {
     echo "
 <!-- 
-  This site uses TypeIt, the most versatile animated typing utility on the planet. 
+  This site uses TypeIt, the most versatile typewriter effect library on the planet. 
   
   https://typeitjs.com
   ______               ___ _   

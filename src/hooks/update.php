@@ -9,6 +9,7 @@ add_filter('self_admin_url', '\TypeIt\modify_version_details_url', 10, 3);
 
 define("TYPEIT_TRANSIENT_EXPIRATION", 43200); // 12 hours
 define("TYPEIT_UPDATE_CHECK_TRANSIENT", "wp_update_check_wp_typeit");
+define("TYPEIT_UPDATE_ENDPOINT", "https://wp-plugin-update.now.sh/api/plugin/wp-typeit");
 
 function modify_version_details_url($url, $path, $scheme)
 {
@@ -28,30 +29,15 @@ function remove_view_details_link($pluginMeta, $pluginFile, $pluginData, $status
     return $pluginMeta;
 }
 
-function push_update($updatePlugins)
+/**
+ * Fetch plugin data from remote endpoint.
+ *
+ * @return object
+ */
+function fetch_remote_data()
 {
-    global $pagenow;
-
-    if ($pagenow !== 'plugins.php') {
-        return $updatePlugins;
-    }
-
-    if (!is_object($updatePlugins)) {
-        return $updatePlugins;
-    }
-
-    if (!isset($update_plugins->response) || !is_array($update_plugins->response)) {
-        $updatePlugins->response = [];
-    }
-
-    if ($transient = get_transient(TYPEIT_UPDATE_CHECK_TRANSIENT)) {
-        $updatePlugins->response['wp-typeit/typeit.php'] = $transient;
-
-        return $updatePlugins;
-    }
-
     $pluginData = wp_remote_get(
-        'https://wp-plugin-update.now.sh/api/plugin/wp-typeit',
+        TYPEIT_UPDATE_ENDPOINT,
         [
             'headers' => [
                 'Accept' => 'application/json'
@@ -59,6 +45,7 @@ function push_update($updatePlugins)
         ]
     );
 
+    // Something went wrong!
     if (
         is_wp_error($pluginData) ||
         ($pluginData['response']['code'] ?? null) !== 200 ||
@@ -68,25 +55,63 @@ function push_update($updatePlugins)
     }
 
     $pluginData = json_decode($pluginData['body']);
-    $responseObject = (object) [
-        'slug'         => 'wp-typeit',
-        'new_version'  => $pluginData->version,
-        'url'          => 'https://typeitjs.com',
-        'package'      => $pluginData->package
+
+    // Should resemble object described here:
+    // https://make.wordpress.org/core/2020/07/30/recommended-usage-of-the-updates-api-to-support-the-auto-updates-ui-for-plugins-and-themes-in-wordpress-5-5/
+    return (object) [
+        'id'            => 'wp-typeit/typeit.php',
+        'slug'          => 'wp-typeit',
+        'plugin'        => 'wp-typeit/typeit.php',
+        'new_version'   => $pluginData->version,
+        'url'           => 'https://typeitjs.com',
+        'package'       => $pluginData->package,
+        'icons'         => [],
+        'banners'       => [],
+        'banners_rtl'   => [],
+        'tested'        => '',
+        'requires_php'  => '7.0',
+        'compatibility' => new \stdClass(),
     ];
+}
+
+function push_update($updatePluginsTransient)
+{
+    global $pagenow;
+
+    // Only deal with this on the "plugins" page.
+    if ($pagenow !== 'plugins.php') {
+        return $updatePluginsTransient;
+    }
+
+    if (!is_object($updatePluginsTransient)) {
+        return $updatePluginsTransient;
+    }
+
+    // Guarantee that a `response` property exists.
+    if (!isset($update_plugins->response) || !is_array($update_plugins->response)) {
+        $updatePluginsTransient->response = [];
+    }
+
+    // Do not update if a previously-set transient was found.
+    if ($transient = get_transient(TYPEIT_UPDATE_CHECK_TRANSIENT)) {
+        $updatePluginsTransient->no_update['wp-typeit/typeit.php'] = $transient;
+
+        return $updatePluginsTransient;
+    }
+
+    $pluginData = fetch_remote_data();
 
     set_transient(
         TYPEIT_UPDATE_CHECK_TRANSIENT,
-        $responseObject,
+        $pluginData,
         TYPEIT_TRANSIENT_EXPIRATION
     );
 
-    // Don't show `update` notice unless the remote version is newer. 
     if (version_compare($pluginData->version, WP_TYPEIT_PLUGIN_VERSION, "<=")) {
-        return $updatePlugins;
+        return $updatePluginsTransient;
     }
 
-    $updatePlugins->response['wp-typeit/typeit.php'] = $responseObject;
+    $updatePluginsTransient->response['wp-typeit/typeit.php'] = $pluginData;
 
-    return $updatePlugins;
+    return $updatePluginsTransient;
 }

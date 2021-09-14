@@ -19,9 +19,9 @@ function register_block_and_assets()
 
     wp_register_style(
         'ti-block-editor-style',
-        $pluginUrl . '/build/editor.css',
+        $pluginUrl . '/build/style-editor.css',
         ['wp-edit-blocks', 'wp-components'],
-        filemtime($pluginPath . '/build/editor.css')
+        filemtime($pluginPath . '/build/style-editor.css')
     );
 
     register_block_type('wp-typeit/block', [

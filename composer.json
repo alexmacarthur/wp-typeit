@@ -4,7 +4,7 @@
   "type": "wordpress-plugin",
   "minimum-stability": "stable",
   "license": "GPL-2.0",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "authors": [
     {
       "name": "Alex MacArthur",
@@ -14,7 +14,7 @@
     }
   ],
   "support" : {
-    "issues": "https://wordpress.org/support/plugin/typeit"
+    "issues": "https://github.com/alexmacarthur/wp-typeit"
   },
   "require": {
     "composer/installers": "^1.0.7"

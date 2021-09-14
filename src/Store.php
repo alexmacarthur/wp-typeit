@@ -5,7 +5,7 @@ namespace TypeIt;
 class Store
 {
     private static $data = array(
-        'typeit_version' => '7.0.4',
+        'typeit_version' => '8.0.3',
         'option_defaults' => array(),
         'option_default_values' => []
     );

@@ -15,15 +15,12 @@
 
         &--minor {
             flex: 0 1 auto;
+            min-height: 35px;
         }
     }
 
     &-argument, &-selector {
         display: flex;
         align-items: center;
-    }
-
-    button {
-        max-height: 30px;
     }
 }

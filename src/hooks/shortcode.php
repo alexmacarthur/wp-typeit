@@ -7,7 +7,6 @@ add_filter('typeit:shortcode_atts', '\TypeIt\convert_to_string');
 
 function register_shortcode($atts, $content = '')
 {
-    
     $args = shortcode_atts(
         array_merge(Store::get('option_default_values'), ["element" => "span"]),
         $atts
@@ -19,7 +18,10 @@ function register_shortcode($atts, $content = '')
 
     wp_enqueue_script('typeit');
 
-    wp_add_inline_script('typeit', "window." . $id . " = new TypeIt('#" . $id . "', " . json_encode($args) . ").go();");
+    // Allow people to pass real JavaScript for a more finely-tuned animation.
+    $manualQueue = empty($atts['queue']) ? "" :  "." . ltrim($atts['queue'], '.');
+
+    wp_add_inline_script('typeit', "window.$id = new TypeIt('#$id', " . json_encode($args) . ")$manualQueue.go();");
 
     return '<' . $args["element"] . ' id="' . $id . '">' . $content . '</' . $args["element"] . '>';
 }
