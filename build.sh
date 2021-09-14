@@ -28,6 +28,8 @@ FILES_TO_DELETE=(
     ".prettierignore"
     ".eslintrc.js"
     ".eslintignore"
+    ".eslintcache"
+    ".husky"
 )
 
 for item in "${FILES_TO_DELETE[@]}"
