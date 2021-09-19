@@ -41,4 +41,9 @@ do
     rm -rf $path_to_delete
 done
 
+cd ../
+echo "Zipping..."
+zip -r "$1.zip" wp-typeit-build
+cd wp-typeit
+
 echo "Done!"
