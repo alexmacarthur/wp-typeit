@@ -14,8 +14,8 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '2.0.1',
-    'version' => '2.0.1.0',
+    'pretty_version' => '3.0.1',
+    'version' => '3.0.1.0',
     'aliases' => 
     array (
     ),
@@ -26,8 +26,8 @@ private static $installed = array (
   array (
     'alexmacarthur/wp-typeit' => 
     array (
-      'pretty_version' => '2.0.1',
-      'version' => '2.0.1.0',
+      'pretty_version' => '3.0.1',
+      'version' => '3.0.1.0',
       'aliases' => 
       array (
       ),
