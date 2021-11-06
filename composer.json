@@ -13,6 +13,11 @@
       "role": "Developer"
     }
   ],
+  "config": {
+    "platform": {
+      "php": "7.0"
+    }
+  },
   "support" : {
     "issues": "https://github.com/alexmacarthur/wp-typeit"
   },
