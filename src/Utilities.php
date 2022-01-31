@@ -68,6 +68,33 @@ class Utilities
         return $formattedOptions;
     }
 
+    /**
+     * Determine if nested layers of inner blocks have a block by a particular name.
+     *
+     * @param array $block
+     * @param string $blockName
+     * @return boolean
+     */
+    public static function exists_in_inner_block($block, $blockName) {
+        if(!$block['innerBlocks']) {
+            return false;
+        }
+
+        foreach($block['innerBlocks'] as $block) {
+            // This inner block has our block!
+            if(!empty($block['attrs']['ref']) && has_block($blockName, $block['attrs']['ref'])) {
+                return true;
+            }
+
+            // We still have more inner blocks, so keep searching through them.
+            if(!empty($block['innerBlocks'])) {
+                return self::exists_in_inner_block($block, $blockName);
+            }
+        }
+
+        return false;
+    }
+
     public static function has_reusable_block($blockName, $post) {
         // This page doesn't have any blocks. Don't bother.
         if (!has_blocks($post)) {
@@ -78,12 +105,16 @@ class Utilities
         if (has_block('block', $post)) {
             $content = get_post_field( 'post_content', $post);
             $blocks = parse_blocks($content);
-            
+
             if (!is_array( $blocks ) || empty($blocks)) {
                 return false;
             }
 
             foreach ($blocks as $block) {
+                if($hasInnerBlock = self::exists_in_inner_block($block, $blockName)) {
+                    return $hasInnerBlock;
+                }
+
                 if (!empty($block['attrs']['ref']) && has_block($blockName, $block['attrs']['ref'])) {
                     return true;
                 }
