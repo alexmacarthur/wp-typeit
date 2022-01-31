@@ -44,4 +44,11 @@ class UtilitiesTest extends \Tests\TestCase
         $this->assertInternalType('int', $typed["loopDelay"]);
         $this->assertInternalType('bool', $typed["html"]);
     }
+
+    public function testCheckInnerBlocks_doesNotHaveInnerBlocks() {
+        $block = [];
+        $result = Utilities::exists_in_inner_block($argcblock, "block_name");
+
+        $this->assertFalse($result);
+    }
 }
