@@ -24,7 +24,7 @@ function register_block_and_assets()
         filemtime($pluginPath . '/build/style-editor.css')
     );
 
-    register_block_type('wp-typeit/block', [
+    register_block_type(Store::get('block_slug'), [
         'editor_script' => 'ti-block',
         'editor_style' => 'ti-block-editor-style',
         'style' => 'ti-block-frontend-style'
@@ -34,8 +34,15 @@ function register_block_and_assets()
 function maybe_load_script_for_block()
 {
     global $post;
-    
-    if (isset($post->ID) && has_block('wp-typeit/block', $post->ID)) {
+
+    if(!isset($post->ID)) {
+        return;
+    }
+
+    $hasBlock = has_block(Store::get('block_slug'), $post->ID); 
+    $hasReusableBlock = Utilities::has_reusable_block(Store::get('block_slug'), $post);
+
+    if ($hasBlock || $hasReusableBlock) {
         wp_enqueue_script('typeit');
     }
 }

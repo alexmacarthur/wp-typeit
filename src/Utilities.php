@@ -67,4 +67,29 @@ class Utilities
 
         return $formattedOptions;
     }
+
+    public static function has_reusable_block($blockName, $post) {
+        // This page doesn't have any blocks. Don't bother.
+        if (!has_blocks($post)) {
+            return false;
+        }
+        
+        // This is for reusable blocks
+        if (has_block('block', $post)) {
+            $content = get_post_field( 'post_content', $post);
+            $blocks = parse_blocks($content);
+            
+            if (!is_array( $blocks ) || empty($blocks)) {
+                return false;
+            }
+
+            foreach ($blocks as $block) {
+                if (!empty($block['attrs']['ref']) && has_block($blockName, $block['attrs']['ref'])) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }

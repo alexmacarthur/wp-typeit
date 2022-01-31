@@ -22,10 +22,5 @@ function insert_header_comment()
   This site uses TypeIt, the most versatile typewriter effect library on the planet. 
   
   https://typeitjs.com
-  ______               ___ _   
-  |_   _|  _ _ __  ___|_ _| |_ 
-    | || || | '_ \/ -_)| ||  _|
-    |_| \_, | .__/\___|___|\__|
-        |__/|_|                
 -->\n\n";
 }

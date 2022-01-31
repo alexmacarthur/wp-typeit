@@ -4,11 +4,12 @@ namespace TypeIt;
 
 class Store
 {
-    private static $data = array(
+    private static $data = [
         'typeit_version' => '8.2.0',
-        'option_defaults' => array(),
-        'option_default_values' => []
-    );
+        'option_defaults' => [],
+        'option_default_values' => [],
+        'block_slug' => 'wp-typeit/block'
+    ];
 
     public static function get($key)
     {
