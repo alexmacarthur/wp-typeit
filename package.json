@@ -5,7 +5,7 @@
   "description": "Easily create typewriter effects using the JavaScript utility, TypeIt.",
   "license": "GPL-2.0",
   "main": "typeit.php",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/alexmacarthur/wp-typeit"
@@ -31,33 +31,33 @@
     "typewriter"
   ],
   "devDependencies": {
-    "@wordpress/scripts": "19.0.0",
-    "autoprefixer": "^10.4.0",
+    "@wordpress/scripts": "20.0.1",
+    "autoprefixer": "^10.4.2",
     "css-loader": "^6.5.1",
-    "eslint": "^8.2.0",
+    "eslint": "^8.8.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-react": "^7.26.1",
+    "eslint-plugin-react": "^7.28.0",
     "husky": "^7.0.4",
-    "lint-staged": "^11.2.6",
-    "postcss-loader": "^6.2.0",
-    "prettier": "^2.4.1",
-    "sass": "^1.43.4",
-    "sass-loader": "^12.3.0",
+    "lint-staged": "^12.3.2",
+    "postcss-loader": "^6.2.1",
+    "prettier": "^2.5.1",
+    "sass": "^1.49.0",
+    "sass-loader": "^12.4.0",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.2.6",
-    "typescript": "^4.4.4",
-    "webpack": "^5.62.1"
+    "typescript": "^4.5.5",
+    "webpack": "^5.67.0"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
-    "@fortawesome/react-fontawesome": "^0.1.16",
-    "@wordpress/components": "^19.0.0",
-    "@wordpress/compose": "^5.0.4",
+    "@fortawesome/react-fontawesome": "^0.1.17",
+    "@wordpress/components": "^19.3.0",
+    "@wordpress/compose": "^5.1.0",
     "array-move": "^4.0.0",
-    "react-dnd": "^14.0.4",
-    "react-dnd-html5-backend": "^14.0.2",
+    "react-dnd": "^14.0.5",
+    "react-dnd-html5-backend": "^14.1.0",
     "react-sortable-hoc": "^2.0.0",
-    "typeit": "^8.0.7"
+    "typeit": "^8.2.0"
   }
 }

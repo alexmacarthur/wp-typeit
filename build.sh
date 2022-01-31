@@ -32,6 +32,7 @@ FILES_TO_DELETE=(
     ".husky"
     "empty.ts"
     "tsconfig.json"
+    ".tool-versions"
 )
 
 for item in "${FILES_TO_DELETE[@]}"
