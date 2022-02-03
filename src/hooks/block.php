@@ -14,14 +14,14 @@ function register_block_and_assets()
         'ti-block',
         $pluginUrl . '/build/index.js',
         ['wp-blocks', 'wp-element', 'wp-editor'],
-        filemtime($pluginPath . '/build/index.js')
+        WP_TYPEIT_PLUGIN_VERSION
     );
 
     wp_register_style(
         'ti-block-editor-style',
         $pluginUrl . '/build/style-editor.css',
         ['wp-edit-blocks', 'wp-components'],
-        filemtime($pluginPath . '/build/style-editor.css')
+        WP_TYPEIT_PLUGIN_VERSION
     );
 
     register_block_type(Store::get('block_slug'), [
