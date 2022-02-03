@@ -7,19 +7,16 @@ add_action('init', '\TypeIt\register_block_and_assets');
 
 function register_block_and_assets()
 {
-    $pluginPath = realpath(__DIR__ . '/../..');
-    $pluginUrl = plugins_url('wp-typeit');
-
     wp_register_script(
         'ti-block',
-        $pluginUrl . '/build/index.js',
+        WP_TYPEIT_PLUGIN_BASE_URL . '/build/index.js',
         ['wp-blocks', 'wp-element', 'wp-editor'],
         WP_TYPEIT_PLUGIN_VERSION
     );
 
     wp_register_style(
         'ti-block-editor-style',
-        $pluginUrl . '/build/style-editor.css',
+        WP_TYPEIT_PLUGIN_BASE_URL . '/build/style-editor.css',
         ['wp-edit-blocks', 'wp-components'],
         WP_TYPEIT_PLUGIN_VERSION
     );

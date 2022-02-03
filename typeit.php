@@ -25,6 +25,9 @@ if(!class_exists('\\TypeIt\\App')) {
 
   define('WP_TYPEIT_PLUGIN_VERSION', $pluginData['Version']);
 
+  // The base URL used for serving front-end assets.
+  define('WP_TYPEIT_PLUGIN_BASE_URL', trailingslashit(plugins_url()) . basename(dirname(__FILE__)));
+
   class App {
     
     public static function go() {
