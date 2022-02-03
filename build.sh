@@ -6,8 +6,8 @@ rm -rf ../wp-typeit-build
 npm install 
 npm run build
 rm -rf node_modules
-mkdir ../wp-typeit-build
-cp -a ./ ../wp-typeit-build
+mkdir -p ../wp-typeit-build/wp-typeit
+cp -a ./ ../wp-typeit-build/wp-typeit
 
 FILES_TO_DELETE=(
     "tests"
@@ -37,14 +37,14 @@ FILES_TO_DELETE=(
 
 for item in "${FILES_TO_DELETE[@]}"
 do
-    path_to_delete="../wp-typeit-build/$item"
+    path_to_delete="../wp-typeit-build/wp-typeit/$item"
     echo "Deleting $path_to_delete"
     rm -rf $path_to_delete
 done
 
-cd ../
+cd ../wp-typeit-build
 echo "Zipping..."
-zip -r "$1.zip" wp-typeit-build
-cd wp-typeit
+zip -r "wp-typeit.zip" ./wp-typeit
+cd ../wp-typeit
 
 echo "Done!"
