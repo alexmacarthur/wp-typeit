@@ -1,7 +1,7 @@
 import "./store";
 import "./registerSettingsPanel";
 import { arrayMoveImmutable as arrayMove } from "array-move";
-import { DEFAULT_OPTIONS as typeItDefaults } from "typeit/src/contants";
+import { DEFAULT_OPTIONS as typeItDefaults } from "typeit/src/constants";
 import ActionInput from "./components/actionInput";
 import HeadingSelector from "./components/headingSelector";
 import ActionList from "./components/actionList";

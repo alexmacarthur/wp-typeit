@@ -27,6 +27,11 @@ $white: #ffffff;
     }
 
     .ti-SectionWrapper {
+
+        small {
+            font-family: system-ui;
+        }
+        
         & + .ti-SectionWrapper {
             margin-top: 25px;
         }

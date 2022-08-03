@@ -11,6 +11,12 @@
 
         input {
             width: 100%;
+            min-height: 100%;
+            font-family: system-ui;
+        }
+
+        button {
+            min-height: 100%;
         }
 
         &--minor {

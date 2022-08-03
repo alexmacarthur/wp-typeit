@@ -27,7 +27,13 @@ export default ({
   };
 
   return (
-    <form className="ti-ActionInput">
+    <form
+      className="ti-ActionInput"
+      onSubmit={(e) => {
+        e.preventDefault();
+        queueNewAction();
+      }}
+    >
       <div className="ti-ActionInput-container">
         <div className="ti-ActionInput-selector">
           <ActionSelector
@@ -54,9 +60,7 @@ export default ({
 
         {!editOnly && (
           <div className="ti-ActionInput-argument ti-ActionInput-argument--minor">
-            <Button onClick={queueNewAction} isPrimary>
-              Add
-            </Button>
+            <Button isPrimary>Add</Button>
           </div>
         )}
       </div>

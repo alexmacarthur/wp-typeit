@@ -1,5 +1,5 @@
 const { registerStore } = wp.data;
-import { DEFAULT_OPTIONS as settings } from "typeit/src/contants";
+import { DEFAULT_OPTIONS as settings } from "typeit/src/constants";
 
 const initialState = {
   settings,

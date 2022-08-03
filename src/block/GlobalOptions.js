@@ -1,10 +1,24 @@
-import { DEFAULT_OPTIONS as typeItDefaults } from "typeit/src/contants";
+import { DEFAULT_OPTIONS as typeItDefaults } from "typeit/src/constants";
 import { TextControl } from "@wordpress/components";
-const { useRef, useState } = wp.element;
+const { useRef, useState, useEffect } = wp.element;
 
 export default () => {
   let activeBlock = useRef(wp.data.select("wp-typeit/store").getActiveBlock());
   let formRef = useRef(null);
+  const [focusedInput, setFocusedInput] = useState(null);
+
+  useEffect(() => {
+    if (!formRef.current) return;
+    if (!focusedInput) return;
+
+    let i = formRef.current.querySelector(
+      `[name="ti_setting[${focusedInput}]"]`
+    );
+
+    if (!i) return;
+
+    i.focus();
+  });
 
   const [settings, setSettings] = useState(() => {
     let settings = {
@@ -32,9 +46,9 @@ export default () => {
     settingsInputs.forEach((s) => {
       let name = s.name.match(/ti_setting\[(.+?)\]/)[1];
       let value = s.type === "checkbox" ? s.checked : s.value;
+      let isBoolean = parseInt(value, 10).toString() === "NaN";
 
-      value =
-        parseInt(value, 10).toString() === "NaN" ? value : parseInt(value);
+      value = isBoolean ? value : parseInt(value);
 
       updatedSettings[name] = value;
     });
@@ -47,11 +61,14 @@ export default () => {
     setSettings({ ...settings, ...updatedSettings });
   };
 
-  let elements = [];
+  let elements = Object.entries(settings).map(([setting, settingValue]) => {
+    // Accounts for the "cursor" option, which is now an object by default.
+    settingValue =
+      typeof settingValue === "object" && settingValue !== null
+        ? true
+        : settingValue;
 
-  for (const setting in settings) {
-    let type = typeof settings[setting];
-    let settingValue = settings[setting];
+    let type = typeof settingValue;
 
     let TiCheckboxControl = () => {
       return (
@@ -61,6 +78,8 @@ export default () => {
             data-setting-name={""}
             type="checkbox"
             defaultChecked={settingValue}
+            onChange={updateGlobalSettings}
+            onFocus={() => setFocusedInput("")}
           />
           <span style={{ paddingRight: "10px" }}>{setting}</span>
         </label>
@@ -71,20 +90,23 @@ export default () => {
       return (
         <TextControl
           name={`ti_setting[${setting}]`}
-          onBlur={updateGlobalSettings}
           label={setting}
           defaultValue={settingValue}
-          onChange={() => {}}
+          onFocus={() => setFocusedInput(setting)}
+          onBlur={() => setFocusedInput("")}
+          onChange={updateGlobalSettings}
         />
       );
     };
 
     let el = type === "boolean" ? <TiCheckboxControl /> : <TiTextControl />;
 
-    elements.push(
-      <span style={{ display: "block", marginBottom: "1rem" }}>{el}</span>
+    return (
+      <span key={setting} style={{ display: "block", marginBottom: "1rem" }}>
+        {el}
+      </span>
     );
-  }
+  });
 
   return (
     <div className="ti-GlobalSettings">
