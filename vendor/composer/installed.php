@@ -1,8 +1,8 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => '3.0.5',
-    'version' => '3.0.5.0',
+    'pretty_version' => '3.1.0',
+    'version' => '3.1.0.0',
     'aliases' => 
     array (
     ),
@@ -13,8 +13,8 @@
   array (
     'alexmacarthur/wp-typeit' => 
     array (
-      'pretty_version' => '3.0.5',
-      'version' => '3.0.5.0',
+      'pretty_version' => '3.1.0',
+      'version' => '3.1.0.0',
       'aliases' => 
       array (
       ),

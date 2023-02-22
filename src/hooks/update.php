@@ -75,6 +75,10 @@ function fetch_remote_data()
 
 function push_update($updatePluginsTransient)
 {
+    if (!is_object($updatePluginsTransient)) {
+        return $updatePluginsTransient;
+    }
+    
     $checkPluginTransient = get_transient(TYPEIT_UPDATE_CHECK_TRANSIENT);
 
     $pluginData = $checkPluginTransient ?: fetch_remote_data();
