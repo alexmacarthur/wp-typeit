@@ -22,7 +22,7 @@ function modify_version_details_url($url, $path, $scheme)
 
 function remove_view_details_link($pluginMeta, $pluginFile, $remoteData, $status)
 {
-    if ($remoteData['slug'] === 'wp-typeit') {
+    if (($remoteData['slug'] ?? "") === 'wp-typeit') {
         unset($pluginMeta[2]);
     }
 

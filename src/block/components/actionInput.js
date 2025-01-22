@@ -60,7 +60,9 @@ export default ({
 
         {!editOnly && (
           <div className="ti-ActionInput-argument ti-ActionInput-argument--minor">
-            <Button isPrimary>Add</Button>
+            <Button isPrimary type="submit">
+              Add
+            </Button>
           </div>
         )}
       </div>

@@ -5,7 +5,7 @@ namespace TypeIt;
 class Store
 {
     private static $data = [
-        'typeit_version' => '8.2.0',
+        'typeit_version' => '8.8.7',
         'option_defaults' => [],
         'option_default_values' => [],
         'block_slug' => 'wp-typeit/block'
