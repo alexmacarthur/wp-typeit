@@ -1,55 +1,58 @@
 <?php
 /**
-* Plugin Name: WP TypeIt
-* Plugin URI: https://typeitjs.com
-* Description: Easily create and manage typewriter effects using the JavaScript utility, TypeIt.
-* Version: 3.1.1
-* Author: Alex MacArthur
-* Author URI: https://macarthur.me
-* License: GPLv2 or later
-* License URI: http://www.gnu.org/licenses/gpl-2.0.html
-*/
+ * Plugin Name: WP TypeIt
+ * Plugin URI: https://typeitjs.com
+ * Description: Easily create and manage typewriter effects using the JavaScript utility, TypeIt.
+ * Version: 3.1.1
+ * Author: Alex MacArthur
+ * Author URI: https://macarthur.me
+ * License: GPLv2 or later
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ */
 
 namespace TypeIt;
 
-if ( !defined( 'WPINC' ) ) {
-  die;
+if (!defined('WPINC')) {
+    die;
 }
 
-if(!class_exists('\\TypeIt\\App')) {
+if (!class_exists('\\TypeIt\\App')) {
 
-  require_once(ABSPATH . 'wp-admin/includes/plugin.php');
-  require_once(dirname(__FILE__) . '/vendor/autoload.php');
+    require_once ABSPATH . 'wp-admin/includes/plugin.php';
+    require_once dirname(__FILE__) . '/vendor/autoload.php';
 
-  $pluginData = get_plugin_data(__FILE__);
+    $pluginData = get_plugin_data(__FILE__);
 
-  define('WP_TYPEIT_PLUGIN_VERSION', $pluginData['Version']);
+    define('WP_TYPEIT_PLUGIN_VERSION', $pluginData['Version']);
 
-  // The base URL used for serving front-end assets.
-  define('WP_TYPEIT_PLUGIN_BASE_URL', trailingslashit(plugins_url()) . basename(dirname(__FILE__)));
+    // The base URL used for serving front-end assets.
+    define('WP_TYPEIT_PLUGIN_BASE_URL', trailingslashit(plugins_url()) . basename(dirname(__FILE__)));
 
-  class App {
-    
-    public static function go() {
-      $GLOBALS[__CLASS__] = new self;
-      return $GLOBALS[__CLASS__];
+    class App
+    {
+
+        public static function go()
+        {
+            $GLOBALS[__CLASS__] = new self;
+            return $GLOBALS[__CLASS__];
+        }
+
+        /**
+         * Instatiate necessary classes, enqueue admin scripts.
+         */
+        public function __construct()
+        {
+            $realpath = realpath(dirname(__FILE__));
+
+            require_once $realpath . '/src/hooks/block.php';
+            require_once $realpath . '/src/hooks/update.php';
+            require_once $realpath . '/src/hooks/shortcode.php';
+            require_once $realpath . '/src/hooks/plugin-meta.php';
+            require_once $realpath . '/src/hooks/enqueue-assets.php';
+        }
+
     }
 
-    /**
-     * Instatiate necessary classes, enqueue admin scripts.
-     */
-    public function __construct() {
-      $realpath = realpath(dirname(__FILE__));
+    App::go();
 
-      require_once($realpath . '/src/hooks/block.php');
-      require_once($realpath . '/src/hooks/update.php');
-      require_once($realpath . '/src/hooks/shortcode.php');
-      require_once($realpath . '/src/hooks/plugin-meta.php');
-      require_once($realpath . '/src/hooks/enqueue-assets.php');
-    }
-    
-  }
-
-  App::go();
-  
 }

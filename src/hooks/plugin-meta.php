@@ -18,9 +18,9 @@ function add_plugin_meta($plugin_meta, $plugin_file, $plugin_data, $status)
 function insert_header_comment()
 {
     echo "
-<!-- 
-  This site uses TypeIt, the most versatile typewriter effect library on the planet. 
-  
+<!--
+  This site uses TypeIt, the most versatile typewriter effect library on the planet.
+
   https://typeitjs.com
 -->\n\n";
 }
